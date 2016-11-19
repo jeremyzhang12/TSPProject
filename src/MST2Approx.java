@@ -1,46 +1,53 @@
 import java.util.*;
 import java.io.*;
 
-public class TSP {
+public class MST2Approx {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
+		//System.out.println(args[0]);
 		String[] cities = new String[]{"Atlanta", "Boston", "Champaign", "Cincinnati", "Denver",
 				"NYC", "Philadelphia", "Roanoke", "SanFrancisco", "Toronto", "UKansasState", "UMissouri"};
 		
 		// generate the adjacency matrix containing distances
-		String filename;// = "./DATA/UMissouri.tsp";
 		for(String city : cities){
-			filename = "./DATA/" + city + ".tsp";
-			//System.out.println(filename);
-			runMain(filename);
+			runMain(city);
 			System.out.println();
 		}
 	}
 	
-	public static void runMain(String filename) throws FileNotFoundException, IOException{
+	public static void runMain(String city) throws FileNotFoundException, IOException{
+		long start = System.currentTimeMillis();
+		long end  = start + 10;
+		String filename = "./DATA/" + city + ".tsp";
+		
+		// initialize the graph as a adjacency matrix stored in "table"
 		Graph g = new Graph();
 		float[][] table = g.getGraph(filename);
 		
 		//*************************** 2 APPROXIMATION MST METHOD **************************
 		Vertex[] vset = g.getVertex();
 		MST mst = new MST();
+		
+		// construct the MST
 		mst.doMst(vset, table);
 		HashMap<Integer, List<Integer>> tree = mst.getTree();
+		
 		// run test for the parameters above
 		//runTestCase(tree, path, table, parent);
-		int[] res = new int[table.length];
-		int curr = mst.runTSP(tree, 0, res, 0);
 		
-		System.out.println("2 Approx MST path length is " + mst.getCost(res, table));
-		// print path
-		//mst.printPath(res);
+		// construct TSP and path
+		int[] path = new int[table.length];
+		int curr = mst.runTSP(tree, 0, path, 0);
 		
-		//**************************** NEAREST NEIGHBOR METHOD ****************************
-		NearestNeighbor n = new NearestNeighbor();
-		int[] nearestPath = n.getPath(table);
-		System.out.println("Nearest Neighbor path length is " + n.getCost());
+		System.out.println("2 Approx MST path length is " + mst.getCost(path, table));
 		// print path
-		//n.printPath(nearestPath);
+		//mst.printPath(path);
+		
+		// to see if program exceeds run time limit
+		if(System.currentTimeMillis() < end){
+			System.out.println("program finishes on time");
+		}else{
+			System.out.println("**********************program does not finish on time********************");
+		}
 	}
 	
 	/**

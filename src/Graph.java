@@ -1,22 +1,54 @@
 import java.util.*;
 import java.lang.Math;
 import java.io.*;
+
+/**
+ * Graph initializer class that will read the file in and prepare the adjacency matrix
+ * @author Jingtian
+ *
+ */
 public class Graph {
 	float[][] graph;
 	Vertex[] vset;
+	
+	/**
+	 * helper function to get graph
+	 * @param filename whole name of input file
+	 * @return adjacency matrix
+	 * @throws FileNotFoundException when the input file is not found
+	 * @throws IOException when the IO is not working
+	 */
 	public float[][] getGraph(String filename) throws FileNotFoundException, IOException{
 		readFile(filename);
 		return graph;
 	}
 	
+	/**
+	 * to get all vertices
+	 * @return array of vertices
+	 */
 	public Vertex[] getVertex(){
 		return vset;
 	}
 	
+	/**
+	 * helper function to get the distance
+	 * @param x1 from point x
+	 * @param y1 from point y
+	 * @param x2 to point x
+	 * @param y2 to point y
+	 * @return relative distance between from and to point
+	 */
 	private float getDist(float x1, float y1, float x2, float y2){
 		return (float) Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
 	}
 	
+	/**
+	 * main function to read input file in and build adjacency matrix
+	 * @param filename input file name
+	 * @throws FileNotFoundException when filename is invalid or path not existing
+	 * @throws IOException when IO not working
+	 */
 	public void readFile(String filename) throws FileNotFoundException, IOException{
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		String[] cityName = br.readLine().split(" ");
@@ -41,6 +73,6 @@ public class Graph {
 				graph[j][i] = graph[i][j];
 			}
 		}
-		//return graph;
+		br.close();
 	}
 }

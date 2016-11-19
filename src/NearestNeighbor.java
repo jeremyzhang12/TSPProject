@@ -3,7 +3,7 @@ public class NearestNeighbor{
 	public float cost;
 	public int[] path;
 	public Set<Integer> vset;
-	public int[] getPath(float[][] table){
+	public void runNearestNeighbor(float[][] table){
 		vset = new HashSet<>();
 		path = new int[table.length];
 		int start = 0;
@@ -16,16 +16,20 @@ public class NearestNeighbor{
 			start = v;
 			vset.add(v);
 		}
-		return path;
 	}
 	
+	/**
+	 * helper function to find next best place to go
+	 * @param table adjacency matrix storing all edge costs
+	 * @param u the "from" location
+	 * @param vset set of vertices, used to check duplicate
+	 * @return the target "to" location
+	 */
 	public int findNearest(float[][] table, int u, Set<Integer> vset){
 		float temp = Float.POSITIVE_INFINITY;
 		int res = 0;
 		for(int i = 0; i < table[u].length; i++){
-			//if(i == u) continue;
 			if(table[u][i] < temp && !vset.contains(i)){
-				//System.out.println(i + " updated");
 				temp = table[u][i];
 				res = i;
 			}
@@ -33,15 +37,30 @@ public class NearestNeighbor{
 		return res;
 	}
 	
+	/**
+	 * get the path of TSP tour
+	 * @return path of TSP tour as an array.
+	 */
+	public int[] getPath(){
+		return path;
+	}
+	
+	/**
+	 * get cost of the whole TSP tour
+	 * @return cost of TSP tour
+	 */
 	public float getCost(){
 		return this.cost;
 	}
 	
-	public void printPath(int[] nearestPath){
+	/**
+	 * Print the TSP path
+	 */
+	public void printPath(){
 		int count = 0, start = 0;
-		while(count != nearestPath.length){
-			System.out.println("from " + start + " to " + nearestPath[start]);
-			start = nearestPath[start];
+		while(count != path.length){
+			System.out.println("from " + start + " to " + path[start]);
+			start = path[start];
 			count++;
 		}
 	}

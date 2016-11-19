@@ -2,7 +2,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
+/*
+ * This class implements the Minimum Spanning Tree that will be used to do 2 approximation
+ * method for TSP
+ * @author Jingtian Zhang
+ */
 public class MST {
 	ArrayList<Integer> path = new ArrayList<>(); // path of 
 	HashSet<Integer> visited = new HashSet<>(); // visited vertices
@@ -10,6 +14,7 @@ public class MST {
 	int[] parent; // array of parent node where index is child, value is parent
 	Vertex[] vertices;
 	int mstCost;
+	
 	/**
 	 * Main function to calculate MST for current graph
 	 * It also implements the path of MST.
