@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class MST2Approx {
+public class MSTApprox {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		//System.out.println(args[0]);
 		String[] cities = new String[]{"Atlanta", "Boston", "Champaign", "Cincinnati", "Denver",
@@ -9,8 +9,10 @@ public class MST2Approx {
 		
 		// generate the adjacency matrix containing distances
 		for(String city : cities){
+			long start = System.currentTimeMillis();
 			runMain(city);
-			System.out.println();
+			//System.out.println();
+			System.out.println("time for " + city + " is " + (System.currentTimeMillis() - start));
 		}
 	}
 	
@@ -38,16 +40,16 @@ public class MST2Approx {
 		int[] path = new int[table.length];
 		int curr = mst.runTSP(tree, 0, path, 0);
 		
-		System.out.println("2 Approx MST path length is " + mst.getCost(path, table));
+		System.out.println("MST Approx for " + city + " is " + mst.getCost(path, table));
 		// print path
 		//mst.printPath(path);
 		
 		// to see if program exceeds run time limit
-		if(System.currentTimeMillis() < end){
-			System.out.println("program finishes on time");
-		}else{
-			System.out.println("**********************program does not finish on time********************");
-		}
+//		if(System.currentTimeMillis() < end){
+//			System.out.println("program finishes on time");
+//		}else{
+//			System.out.println("**********************program does not finish on time********************");
+//		}
 	}
 	
 	/**

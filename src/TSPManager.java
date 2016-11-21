@@ -15,10 +15,11 @@ public class TSPManager {
 		
 		// a way to parse command line input and select the corresponding method
 		Method m = Method.valueOf(args[0]);
+		System.out.println(args[0]);
 		switch(m) {
 			case MSTApprox:
 				//args[0] = "Heur";
-				MST2Approx.main(args);
+				MSTApprox.main(args);
 				break;
 			case Heur:
 				Heuristic.main(args);

@@ -8,7 +8,7 @@ import java.util.List;
  * @author Jingtian Zhang
  */
 public class MST {
-	ArrayList<Integer> path = new ArrayList<>(); // path of 
+	//ArrayList<Integer> path = new ArrayList<>(); // path of 
 	HashSet<Integer> visited = new HashSet<>(); // visited vertices
 	HashMap<Integer, List<Integer>> tree = new HashMap<>(); // MST
 	int[] parent; // array of parent node where index is child, value is parent
@@ -27,11 +27,10 @@ public class MST {
 		parent = new int[vset.length];
 		parent[0] = -1;
 		mstCost = 0;
-		//int last = 0;
 		int prev = 0;
 		while(visited.size() != vset.length){
 			visited.add(currId);
-			path.add(currId);
+			//path.add(currId);
 			prev = currId;
 			//update the unvisited vertex key
 			updateKey(currId,vertices,table);
@@ -48,7 +47,6 @@ public class MST {
 			}else{
 				tree.get(vertices[currId].p).add(currId);
 			}
-			//last = currId;
 		}
 		parent[currId] = prev;
 		// debug message
@@ -116,9 +114,9 @@ public class MST {
 	 * 
 	 * @return the traversing order when constructing the MST
 	 */
-	public ArrayList<Integer> getPath(){
-		return path;
-	}
+//	public ArrayList<Integer> getPath(){
+//		return path;
+//	}
 	
 	/**
 	 * Preorder traversal of the MST built. Fulfill the 2 approximation MST requirement.

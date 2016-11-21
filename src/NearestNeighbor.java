@@ -6,15 +6,26 @@ public class NearestNeighbor{
 	public void runNearestNeighbor(float[][] table){
 		vset = new HashSet<>();
 		path = new int[table.length];
-		int start = 0;
-		cost = 0;
-		vset.add(start);
-		while(vset.size() != table.length){
-			int v = findNearest(table, start, vset);
-			path[start] = v;
-			cost += table[start][v];
-			start = v;
-			vset.add(v);
+		//int start = 0;
+		cost = Float.POSITIVE_INFINITY;
+		float tempCost;
+		//vset.add(start);
+		for(int start = 0; start < table.length; start++){
+			tempCost = 0;
+			vset.clear();
+			vset.add(start);
+			int tempStart = start;
+			while(vset.size() != table.length){
+				int v = findNearest(table, tempStart, vset);
+				//path[tempStart] = v;
+				tempCost += table[tempStart][v];
+				tempStart = v;
+				vset.add(v);
+			}
+			tempCost += table[start][tempStart];
+			if(tempCost < cost){
+				cost = tempCost;
+			}
 		}
 	}
 	

@@ -33,17 +33,17 @@ public class Heuristic {
 		n.runNearestNeighbor(table);
 		
 		// get path length
-		System.out.println("Nearest Neighbor path length is " + n.getCost());
+		System.out.println("Nearest Neighbor of " + city + " is " + n.getCost());
 		
 		// print path
 		//n.printPath();
 		
 		// to see if program exceeds run time limit
-		if(System.currentTimeMillis() < end){
-			System.out.println("program finishes on time");
-		}else{
-			System.out.println("**********************program does not finish on time********************");
-		}
+//		if(System.currentTimeMillis() < end){
+//			System.out.println("program finishes on time");
+//		}else{
+//			System.out.println("**********************program does not finish on time********************");
+//		}
 	}
 
 }
