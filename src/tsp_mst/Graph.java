@@ -1,3 +1,5 @@
+package tsp_mst;
+
 import java.util.*;
 import java.lang.Math;
 import java.io.*;
@@ -10,7 +12,7 @@ import java.io.*;
 public class Graph {
 	float[][] graph;
 	Vertex[] vset;
-	
+	public String cityName;
 	/**
 	 * helper function to get graph
 	 * @param filename whole name of input file
@@ -51,7 +53,8 @@ public class Graph {
 	 */
 	public void readFile(String filename) throws FileNotFoundException, IOException{
 		BufferedReader br = new BufferedReader(new FileReader(filename));
-		String[] cityName = br.readLine().split(" ");
+		String[] firstLine = br.readLine().split(" ");
+		cityName = firstLine[1];
 		br.readLine();
 		String[] dimension = br.readLine().split(" ");
 		int d = Integer.parseInt(dimension[1]);

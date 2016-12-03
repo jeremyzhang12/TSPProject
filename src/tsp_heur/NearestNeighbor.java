@@ -1,15 +1,21 @@
+package tsp_heur;
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.*;
 public class NearestNeighbor{
+	float[][] localTable;
 	public float cost;
-	public int[] path;
+	public ArrayList<Integer> path;
 	public Set<Integer> vset;
 	public void runNearestNeighbor(float[][] table){
+		localTable = table;
 		vset = new HashSet<>();
-		path = new int[table.length];
-		//int start = 0;
 		cost = Float.POSITIVE_INFINITY;
 		float tempCost;
-		//vset.add(start);
+		path = new ArrayList<>();
+		int best = 0;
+		//pick the best starting point
 		for(int start = 0; start < table.length; start++){
 			tempCost = 0;
 			vset.clear();
@@ -17,15 +23,26 @@ public class NearestNeighbor{
 			int tempStart = start;
 			while(vset.size() != table.length){
 				int v = findNearest(table, tempStart, vset);
-				//path[tempStart] = v;
 				tempCost += table[tempStart][v];
 				tempStart = v;
 				vset.add(v);
 			}
 			tempCost += table[start][tempStart];
+
 			if(tempCost < cost){
 				cost = tempCost;
+				best = start;
 			}
+		}
+		vset.clear();
+		vset.add(best);
+		int tempstart = best;
+		path.add(best);
+		while(vset.size() != table.length){
+			int v = findNearest(table, tempstart, vset);
+			path.add(v);
+			tempstart = v;
+			vset.add(v);
 		}
 	}
 	
@@ -52,7 +69,7 @@ public class NearestNeighbor{
 	 * get the path of TSP tour
 	 * @return path of TSP tour as an array.
 	 */
-	public int[] getPath(){
+	public ArrayList<Integer> getPath(){
 		return path;
 	}
 	
@@ -66,13 +83,19 @@ public class NearestNeighbor{
 	
 	/**
 	 * Print the TSP path
+	 * @throws FileNotFoundException 
 	 */
-	public void printPath(){
-		int count = 0, start = 0;
-		while(count != path.length){
-			System.out.println("from " + start + " to " + path[start]);
-			start = path[start];
-			count++;
+	public void printPath(String outfile) throws FileNotFoundException{
+		PrintStream out = new PrintStream(outfile);
+		out.println((int)cost);
+		int prev = path.get(0);
+		int curr;
+		for(int i = 1; i < path.size(); i++){
+			curr = path.get(i);
+			out.println(prev + " " + curr + " " + localTable[prev][curr]);
+			prev = curr;
 		}
+		out.println(path.get(path.size()-1) + " " + path.get(0) + " " + localTable[path.get(0)][path.get(path.size()-1)]);
+		out.close();
 	}
 }

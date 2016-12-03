@@ -1,0 +1,9 @@
+README
+
+This is short description about the CSE6140 Project Scoreboard Competition of Group Y.
+Memeber: Jingtian Zhang(jzhang729), Tianyu Sun(tsun68), Taiyu Guo(tguo40), Xin Zhang(xzhang401)
+
+Instruction:
+The project is already built as a jar file. Please navigate to the corresponding folder of this jar file.
+type java -jar CSE6140_GroupY.jar -inst <filename> -alg <BnB/LS1/LS2/Heur/MSTApprox> -time <cut time in sec> -seed <rand seed>
+There will be corresponding .sol and .trace output files for the instance.

@@ -1,3 +1,7 @@
+package tsp_mst;
+
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +18,9 @@ public class MST {
 	int[] parent; // array of parent node where index is child, value is parent
 	Vertex[] vertices;
 	int mstCost;
-	
+	float[][] localTable;
+	public double time;
+	public int pathCost;
 	/**
 	 * Main function to calculate MST for current graph
 	 * It also implements the path of MST.
@@ -22,6 +28,7 @@ public class MST {
 	 * @param table lookup table for distance between any two vertices
 	 */
 	public void doMst(Vertex[] vset, float[][] table){
+		localTable = table;
 		vertices = vset;
 		int currId = 0;
 		parent = new int[vset.length];
@@ -146,27 +153,34 @@ public class MST {
 	public float getCost(int[] res, float[][] table){
 		int count = 0;
 		float pathLength = 0;
-		int index = 0;
+		int prev = 0, curr = 0;
 		while(count != res.length){
 			//System.out.println("from " + index + " to " + res[index]);
-			index = res[index];
-			pathLength += table[index][res[index]];
+			curr = res[prev];
+			pathLength += table[prev][curr];
 			count++;
 		}
+		pathLength += table[res[0]][curr];
 		return pathLength;
 	}
 	
 	/**
 	 * Print the TSP tour
 	 * @param res result array from preorder traversal recording the sequence of visiting
+	 * @throws FileNotFoundException 
 	 */
-	public void printPath(int[] res){
+	public void printPath(String outfile, int[] res) throws FileNotFoundException{
+		PrintStream out = new PrintStream(outfile);
+		pathCost = (int) getCost(res, localTable);
+		out.println(pathCost);
+		
 		int index = 0;
 		int count = 0;
 		while(count != res.length){
-			System.out.println("from " + index + " to " + res[index]);
+			out.println(index + " " + res[index] + " " + localTable[index][res[index]]);
 			index = res[index];
 			count++;
 		}
+		out.close();
 	}
 }

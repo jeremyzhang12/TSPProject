@@ -1,4 +1,4 @@
-
+package tsp_heur;
 public class Vertex {
 	float x;
 	float y;
